@@ -1,7 +1,7 @@
 import {createMiddleware} from "hono/factory";
 import {sessions} from "../../db/schemas";
 import * as SessionService from "@/core/session/session.service";
-import {UnauthorizedException} from "@/common/exceptions";
+import {AppErrorCodes, UnauthorizedException} from "@/common/exceptions";
 import z from "zod/v4";
 import {NonEmptyString} from "@/common/zod";
 

@@ -64,9 +64,9 @@ export async function signIn(
   });
 }
 
-export async function signOut(token: string) {
+export async function signOut(userId: string, token: string) {
   return await Database.transaction(async (tx) => {
-    await tx.delete(sessions).where(eq(sessions.id, token));
+    await SessionService.deleteSession(token);
 
     return {success: true};
   });
