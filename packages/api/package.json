@@ -1,5 +1,5 @@
 {
-  "name": "@matty-stack/api",
+  "name": "@nicheranker/api",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
