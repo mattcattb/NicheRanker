@@ -14,5 +14,3 @@ app.get("/health", (c) => {
 export const appRoutes = app
   .route("/api/auth", authController)
   .route("/api/users", usersController);
-
-export type AppType = typeof appRoutes;

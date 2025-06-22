@@ -1,12 +1,14 @@
 {
+  "extends": "../../tsconfig.base.json",
+
   "include": [
     "**/*",
     "**/.server/**/*",
     "**/.client/**/*",
-    ".react-router/types/**/*"
+    ".react-router/types/**/*",
+    "../../tsconfig.base.json"
   ],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["node", "vite/client"],
     "target": "ES2022",
     "module": "ES2022",
@@ -17,12 +19,9 @@
     "paths": {
       "@/*": ["./app/*"]
     },
+    "composite": true,
     "declaration": true,
-    "esModuleInterop": true,
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true
-  }
+    "noEmit": true
+  },
+  "references": [{"path": "../api"}]
 }

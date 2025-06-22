@@ -1,11 +1,14 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "jsx": "react-jsx",
-    "composite": true,
-    "esModuleInterop": true,
+  "extends": "../../tsconfig.base.json",
 
+  "compilerOptions": {
+    "composite": true,
     "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "paths": {
       "@/*": ["./src/*"]

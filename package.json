@@ -1,11 +1,10 @@
 {
-  "name": "@matty-stack",
+  "name": "matty-stack",
   "private": true,
   "type": "module",
   "files": [],
   "include": [],
   "workspaces": [
-    "packages/api",
-    "packages/web"
+    "packages/*"
   ]
 }

@@ -1,12 +1,5 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ES2022",
-    "strict": true,
-    "esModuleInterop": true,
-    "moduleResolution": "bundler",
-    "baseUrl": ".",
-    "rootDir": ".",
     "composite": true,
     "declaration": true,
     "declarationMap": true,

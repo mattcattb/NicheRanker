@@ -14,19 +14,15 @@ import {
   type AppErrorCode,
   type RpcValidationIssues,
 } from "@/lib/errors";
-import type {AppType} from "@matty-stack/api/src/app";
+import type {AppType} from "@matty-stack/api/src/other";
 
-interface ApiClientConfig {
-  token?: string | null;
-}
-
-export function apiClientRPC(config: {
+export function apiClientRPC(config?: {
   userAgent?: string;
   clientIp?: string;
   token?: string;
   init?: RequestInit;
 }) {
-  const {clientIp, token, userAgent, init} = config;
+  const {clientIp, token, userAgent, init} = config ?? {};
   const headers: Record<string, string> = {};
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
