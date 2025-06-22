@@ -1,3 +1,5 @@
+import {CONFIG} from "@/lib/config";
+import {ENV} from "@/lib/ENV";
 import type {Toast} from "@/lib/toast";
 import {getHeaders, type HeaderData} from "@/lib/utils/connection";
 import {createCookieSessionStorage} from "react-router";
@@ -17,17 +19,13 @@ export interface FlashData {
   toast?: Toast | null;
 }
 
-if (process.env.NODE_ENV === "production" && !process.env.SESSION_SECRET) {
-  throw new Error("SESSION_SECRET is not set");
-}
-
 export const sessionStorage = createCookieSessionStorage<Data, FlashData>({
   cookie: {
     name: "Reroll-Session",
     secure: true,
     httpOnly: true,
-    maxAge: 60 * 60 * 24 * 30 * 5, // 5 months (basicly forever...)
-    secrets: [process.env.SESSION_SECRET || "dev_secret"],
+    maxAge: CONFIG.SESSION_EXPIRATION,
+    secrets: [ENV.session_secret],
   },
 });
 

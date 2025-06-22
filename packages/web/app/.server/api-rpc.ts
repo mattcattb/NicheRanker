@@ -1,6 +1,5 @@
 import {HTTPException} from "hono/http-exception";
 import {hc} from "hono/client";
-import type {AppType} from "@matty-stack/api";
 import {ENV} from "@/lib/ENV";
 import {
   NetworkError,
@@ -15,6 +14,7 @@ import {
   type AppErrorCode,
   type RpcValidationIssues,
 } from "@/lib/errors";
+import type {AppType} from "@matty-stack/api/src/app";
 
 interface ApiClientConfig {
   token?: string | null;
