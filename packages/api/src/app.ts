@@ -1,10 +1,18 @@
-import {Hono} from "hono";
+import createApp from "@/common/create-app";
+import {AuthMiddleware} from "@/core";
+import {authController} from "@/core/auth/auth.controller";
+import {usersController} from "@/core/user/user.controller";
 
-const app = new Hono();
+export const app = createApp();
 
-app.get("/", (c) => {
+app.use(AuthMiddleware.header);
+
+app.get("/health", (c) => {
   return c.text("Hello Hono!");
 });
 
-export type AppType = typeof app;
-export default app;
+export const appRoutes = app
+  .route("/api/auth", authController)
+  .route("/api/users", usersController);
+
+export type AppType = typeof appRoutes;

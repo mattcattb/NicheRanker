@@ -1,9 +1,17 @@
-import {createInsertSchema} from "drizzle-zod";
-import {users} from "../../db/schemas";
-import {z} from "zod";
+import {createRouter} from "@/common/create-app";
+import * as AuthMiddleware from "@/core/auth/auth.middleware";
+import * as UserService from "./user.service";
+import {NotFoundException} from "@/common/exceptions";
 
-export const insertUserSchema = createInsertSchema(users);
+export const usersController = createRouter()
+  .use(AuthMiddleware.sessionMiddleware)
+  .get("/", async (c) => {
+    const userId = c.get("userId");
+    const response = await UserService.getUser(userId);
 
-export function createUser(json: z.infer<typeof insertUserSchema>) {
-  const {} = json;
-}
+    if (!response) {
+      throw new NotFoundException(`User ${userId} not found!`);
+    }
+
+    return c.json(response, 200);
+  });

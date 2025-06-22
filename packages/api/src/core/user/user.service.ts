@@ -1,8 +1,9 @@
 import {ResourceCreationException} from "@/common/exceptions";
 import {NonEmptyString} from "@/common/zod";
-import {Database} from "@/db/client";
+import db, {Database} from "@/db/client";
 import {users} from "@/db/schemas";
-import {password} from "bun";
+import {hashString} from "@/lib/crypto";
+import {eq} from "drizzle-orm";
 import z from "zod/v4";
 
 const createUserSchema = z.object({
@@ -17,7 +18,7 @@ export async function createUser(data: z.infer<typeof createUserSchema>) {
     .insert(users)
     .values({
       username: data.username,
-      password: data.password,
+      password: hashString(data.password),
     })
     .returning();
 
@@ -26,4 +27,16 @@ export async function createUser(data: z.infer<typeof createUserSchema>) {
   }
 
   return createdUser;
+}
+
+export async function getUser(userId: string) {
+  const user = await db.query.users.findFirst({
+    where: eq(users.id, userId),
+  });
+
+  if (!user) {
+    return null;
+  }
+
+  return user;
 }

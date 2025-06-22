@@ -3,6 +3,8 @@
     "strict": true,
     "jsx": "react-jsx",
     "composite": true,
+    "esModuleInterop": true,
+
     "declaration": true,
     "jsxImportSource": "hono/jsx",
     "paths": {
