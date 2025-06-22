@@ -1,0 +1,35 @@
+{
+  "folders": [
+    {"path": "./", "name": "$ROOT"},
+    {"path": "./packages/api"},
+    {"path": "./packages/web"},
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+
+    "typescript.tsdk": "$ROOT/node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+
+    "typescript.tsserver.maxTsServerMemory": 8192,
+    "files.watcherExclude": {
+      "**/node_modules/**": true,
+      "**/dist/**": true,
+      "**/.react-router/cache/**": true,
+    },
+
+    "tailwindCSS.includeLanguages": {
+      "typescript": "javascript",
+      "typescriptreact": "javascript",
+    },
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "ms-vscode.vscode-typescript-next",
+    ],
+  },
+}
