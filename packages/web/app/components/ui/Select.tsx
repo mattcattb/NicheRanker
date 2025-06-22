@@ -1,6 +1,6 @@
 import Popover from "@/components/ui/Popover";
-import { cn } from "@/lib/utils/styling";
-import { ChevronDown } from "lucide-react";
+import {cn} from "@/lib/utils/styling";
+import {ChevronDown} from "lucide-react";
 import type {
   ListBoxItemProps,
   SelectProps,
@@ -16,7 +16,6 @@ import {
   ListBox,
   ListBoxItem,
 } from "react-aria-components";
-import { Icon } from "@iconify/react";
 
 interface MySelectProps<T extends object>
   extends Omit<SelectProps<T>, "children"> {
@@ -47,9 +46,8 @@ export function Select<T extends object>({
       <Button
         className={cn(
           "w-full bg-muted px-3 py-2 text-start text-sm gap-1 flex justify-between items-center rounded-md cursor-pointer",
-          className,
-        )}
-      >
+          className
+        )}>
         <div className="flex items-center gap-2">
           <SelectValue />
         </div>
@@ -68,8 +66,10 @@ export function SelectItem(props: ListBoxItemProps) {
   return (
     <ListBoxItem
       {...props}
-      className={({ isFocused, isSelected }) =>
-        `p-1.5 cursor-pointer hover:bg-muted-foreground/15 rounded-md ${isFocused ? "focused" : ""} ${isSelected ? "selected" : ""}`
+      className={({isFocused, isSelected}) =>
+        `p-1.5 cursor-pointer hover:bg-muted-foreground/15 rounded-md ${
+          isFocused ? "focused" : ""
+        } ${isSelected ? "selected" : ""}`
       }
     />
   );

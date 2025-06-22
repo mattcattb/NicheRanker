@@ -11,6 +11,7 @@
   },
   "scripts": {
     "dev": "bun run --hot src/index.ts",
+    "build": "rm -rf ./dist && tsc",
     "typecheck": " tsc --noEmit",
     "db:migrate": "bun drizzle-kit migrate",
     "db:generate": "bun drizzle-kit generate",

@@ -1,14 +1,12 @@
 {
-  "extends": "../../tsconfig.base.json",
-
   "include": [
     "**/*",
     "**/.server/**/*",
     "**/.client/**/*",
-    ".react-router/types/**/*",
-    "../../tsconfig.base.json"
+    ".react-router/types/**/*"
   ],
   "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["node", "vite/client"],
     "target": "ES2022",
     "module": "ES2022",
@@ -17,11 +15,17 @@
     "rootDirs": [".", "./.react-router/types"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/*"]
+      "@/*": ["./app/*"],
+      "@api/*": ["../api/src/*"]
     },
     "composite": true,
     "declaration": true,
-    "noEmit": true
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true
   },
   "references": [{"path": "../api"}]
 }

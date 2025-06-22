@@ -52,7 +52,6 @@ export async function loader({request, context}: Route.LoaderArgs) {
   const toastData = getToastDataFromContext(context);
 
   return {
-    ...validatedData,
     toastData: toastData.toast,
   };
 }

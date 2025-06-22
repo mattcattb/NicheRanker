@@ -14,7 +14,8 @@ import {
   type AppErrorCode,
   type RpcValidationIssues,
 } from "@/lib/errors";
-import type {AppType} from "@matty-stack/api/src/other";
+
+import type {AppType} from "@api/app";
 
 export function apiClientRPC(config?: {
   userAgent?: string;

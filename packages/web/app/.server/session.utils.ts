@@ -108,10 +108,11 @@ export function requireToken(context: unstable_RouterContextProvider): {
 
   return {token};
 }
-
 export async function fetchAuthDataFromContext(
   context: unstable_RouterContextProvider
 ) {
+  return undefined;
+  /*
   // returns user auth data, or default data
   const session = getSessionFromContext(context);
   const token = session.get("token");
@@ -149,4 +150,5 @@ export async function fetchAuthDataFromContext(
     settings,
     userData,
   };
+  */
 }

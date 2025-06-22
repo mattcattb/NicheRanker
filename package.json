@@ -6,5 +6,10 @@
   "include": [],
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --verbose",
+    "clean": "tsc -b --clean && rm -rf packages/*/dist && rm -rf packages/*/.turbo && rm -rf node_modules"
+  }
 }

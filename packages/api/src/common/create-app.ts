@@ -1,5 +1,5 @@
 import {createChildLogger, getPinoLogger} from "@/common/logger";
-import {AppEnv} from "@/common/types/hono-types";
+import type {AppEnv} from "@/common/types/hono-types";
 import {Hono} from "hono";
 
 export function createRouter() {

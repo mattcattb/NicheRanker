@@ -1,6 +1,6 @@
 import pino from "pino";
 import {pinoLogger, PinoLogger} from "hono-pino";
-import PinoPretty = require("pino-pretty");
+import PinoPretty from "pino-pretty";
 
 const pinoInstance = pino(
   {
