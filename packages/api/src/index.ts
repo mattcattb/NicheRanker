@@ -1,10 +1,6 @@
-import {Hono} from "hono";
+import app from "./app";
 
-const app = new Hono();
-
-app.get("/", (c) => {
-  return c.text("Hello Hono!");
-});
-
-export type AppType = typeof app;
-export default app;
+export default {
+  fetch: app.fetch,
+  hostname: process.env.HOSTNAME,
+};

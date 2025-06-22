@@ -4,7 +4,10 @@
     "jsx": "react-jsx",
     "composite": true,
     "declaration": true,
-    "jsxImportSource": "hono/jsx"
+    "jsxImportSource": "hono/jsx",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"]
 }
