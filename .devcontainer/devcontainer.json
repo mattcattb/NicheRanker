@@ -10,7 +10,8 @@
       "extensions": [
         "oven.bun-vscode",
         "esbenp.prettier-vscode",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "cweijan.vscode-database-client2"
       ]
     }
   }
