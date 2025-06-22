@@ -2,6 +2,9 @@
   "compilerOptions": {
     "strict": true,
     "jsx": "react-jsx",
+    "composite": true,
+    "declaration": true,
     "jsxImportSource": "hono/jsx"
-  }
+  },
+  "include": ["src"]
 }
