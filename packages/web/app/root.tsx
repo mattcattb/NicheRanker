@@ -12,6 +12,8 @@ import "./app.css";
 import {sessionMiddleware} from "@/.server/session";
 import {fetchAuthDataFromContext} from "@/.server/session.utils";
 import {getToastDataFromContext} from "@/.server/toast.utils";
+import {Navbar} from "@/components/navbar";
+import {Toaster} from "@/components/toaster";
 
 export const links: Route.LinksFunction = () => [
   {rel: "preconnect", href: "https://fonts.googleapis.com"},
@@ -53,13 +55,24 @@ export async function loader({request, context}: Route.LoaderArgs) {
 
   return {
     toastData: toastData.toast,
+    isAuthenticated: validatedData !== null,
+    userData: validatedData,
   };
 }
 
 export type RootLoaderData = typeof loader;
 
-export default function App() {
-  return <Outlet />;
+export default function App({loaderData}: Route.ComponentProps) {
+  return (
+    <div className="h-screen flex flex-col overflow-y-scroll">
+      <Navbar
+        username={loaderData.userData?.username}
+        isAuthenticated={loaderData.isAuthenticated}
+      />
+      <Toaster toast={loaderData.toastData} />
+      <Outlet />;
+    </div>
+  );
 }
 
 export function ErrorBoundary({error}: Route.ErrorBoundaryProps) {

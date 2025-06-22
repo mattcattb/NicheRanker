@@ -4,11 +4,6 @@ import {flashErrorToast} from "@/.server/toast.utils";
 import {RpcForbiddenError, RpcUnauthorizedError} from "@/lib/errors";
 import {redirect, type unstable_RouterContextProvider} from "react-router";
 
-const defaultUser = {
-  isAuthenticated: false,
-  userData: null,
-};
-
 export async function clearSessionFromContext(
   context: unstable_RouterContextProvider
 ) {
@@ -45,10 +40,6 @@ export function requireUserLogin(context: unstable_RouterContextProvider) {
   return token;
 }
 
-export function isAdmin(context: unstable_RouterContextProvider) {
-  return getAuthStatusContext(context).isAdmin;
-}
-
 export function isLoggedIn(context: unstable_RouterContextProvider) {
   const token = getSessionFromContext(context).get("token");
 
@@ -77,7 +68,6 @@ export function apiRPCOptionalToken(context: unstable_RouterContextProvider) {
 interface AuthStatus {
   isAuthenticated: boolean;
   userId?: string;
-  isAdmin?: boolean;
   token?: string;
 }
 
@@ -107,19 +97,24 @@ export function requireToken(context: unstable_RouterContextProvider): {
 
   return {token};
 }
+
+export interface AuthData {
+  username: string;
+}
+
 export async function fetchAuthDataFromContext(
   context: unstable_RouterContextProvider
-) {
-  return undefined;
-  /*
-  // returns user auth data, or default data
+): Promise<AuthData | null> {
   const session = getSessionFromContext(context);
   const token = session.get("token");
   if (!token) {
     clearSessionFromContext(context);
-    return defaultUser;
+    return null;
   }
   const client = apiRPCOptionalToken(context);
+
+  const [error, json] = await tryRpcExpectingData(client.api.users.$get());
+
   if (error) {
     console.error("error fetching user auth data", JSON.stringify(error));
 
@@ -138,16 +133,12 @@ export async function fetchAuthDataFromContext(
       throw error;
     }
 
-    return defaultUser;
+    return null;
   }
 
-  session.set("isAdmin", isAdmin);
-  session.set("userId", userData.userId);
+  const {id, password, username} = json;
+  session.set("userId", id);
   return {
-    isAuthenticated: true,
-    isAdmin,
-    settings,
-    userData,
+    username,
   };
-  */
 }

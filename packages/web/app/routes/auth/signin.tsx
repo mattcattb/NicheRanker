@@ -6,7 +6,10 @@ import {
 } from "@/.server/session.utils";
 import {tryRpcExpectingData} from "@/.server/api-rpc";
 import {RPCBadRequestError} from "@/lib/errors";
-import {redirect} from "react-router";
+import {Form, redirect} from "react-router";
+import {Card} from "@/components/ui/Card";
+import {Input} from "@/components/ui/field/Input";
+import {Button} from "@/components/ui/Button";
 
 export async function action({context, request}: Route.ActionArgs) {
   const formData = await request.formData();
@@ -49,4 +52,14 @@ export async function action({context, request}: Route.ActionArgs) {
   return redirect("/");
 }
 
-export default function SigninPage({}: Route.ComponentProps) {}
+export default function SigninPage({}: Route.ComponentProps) {
+  return (
+    <Card>
+      <Form method="post">
+        <Input type="text" name="username" placeholder="username" />
+        <Input type="text" name="password" placeholder="password" />
+        <Button type="submit">Sign Up</Button>
+      </Form>
+    </Card>
+  );
+}
