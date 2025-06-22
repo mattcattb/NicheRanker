@@ -21,6 +21,7 @@
     "composite": true,
     "declaration": true,
     "esModuleInterop": true,
+    "declarationMap": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
     "resolveJsonModule": true,

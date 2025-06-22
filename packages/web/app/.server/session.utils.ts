@@ -6,7 +6,6 @@ import {redirect, type unstable_RouterContextProvider} from "react-router";
 
 const defaultUser = {
   isAuthenticated: false,
-  isAdmin: false,
   userData: null,
 };
 
@@ -20,7 +19,7 @@ export async function clearSessionFromContext(
 
 export async function setSessionFromContext(
   context: unstable_RouterContextProvider,
-  data: {token: string; userId: string; isAdmin: boolean; isSignup?: boolean}
+  data: {token: string; userId: string}
 ) {
   const session = getSessionFromContext(context);
   session.set("token", data.token);
