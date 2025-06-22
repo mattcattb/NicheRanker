@@ -1,6 +1,7 @@
 import {createMiddleware} from "hono/factory";
 import {sessions} from "../../db/schemas";
 import * as SessionService from "@/core/session/session.service";
+import {UnauthorizedException} from "@/common/exceptions";
 
 export const authMiddleware = createMiddleware<{
   Variables: {
@@ -22,10 +23,10 @@ export const sessionMiddleware = createMiddleware<{
 
   const [scheme, token] = authorization.split(" ");
   if (scheme != "Bearer") {
-    throw new Exceptions.UnauthorizedException("invalid token scheme");
+    throw new UnauthorizedException("invalid token scheme");
   }
   if (!token) {
-    throw new Exceptions.UnauthorizedException("no token in request");
+    throw new UnauthorizedException("no token in request");
   }
 
   const {session, userId} = await SessionService.validateSession(token);
