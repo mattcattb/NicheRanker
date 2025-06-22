@@ -2,12 +2,9 @@ import {createMiddleware} from "hono/factory";
 import {sessions} from "../../db/schemas";
 import * as SessionService from "@/core/session/session.service";
 import {UnauthorizedException} from "@/common/exceptions";
+import z from "zod/v4";
+import {NonEmptyString} from "@/common/zod";
 
-export const authMiddleware = createMiddleware<{
-  Variables: {
-    userId: (str: string) => string;
-  };
-}>(async (c, next) => {});
 export const sessionMiddleware = createMiddleware<{
   Variables: {
     userId: string;
@@ -33,6 +30,27 @@ export const sessionMiddleware = createMiddleware<{
 
   c.set("session", session);
   c.set("userId", userId);
+
+  await next();
+});
+
+export const headerDataSchema = z.object({
+  userAgent: NonEmptyString,
+  ip: NonEmptyString,
+});
+
+export const header = createMiddleware(async (c, next) => {
+  const forwardedFor = c.req.header("x-forwarded-for")?.split(",")[0]?.trim();
+  const clientIp = c.req.header("x-client-ip");
+  const ip = clientIp || forwardedFor;
+  const ua = c.req.header("user-agent")?.slice(0, 255);
+
+  const info = {
+    ipAddress: ip,
+    userAgent: ua,
+  };
+
+  c.set("headers", info);
 
   await next();
 });

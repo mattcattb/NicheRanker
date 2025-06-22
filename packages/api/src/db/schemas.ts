@@ -23,7 +23,7 @@ export const sessions = pgTable(
 export const insertSessionSchema = createInsertSchema(sessions);
 
 export const users = pgTable("users", {
-  id: t.uuid().primaryKey(),
-  name: t.text().notNull(),
+  id: t.uuid().primaryKey().defaultRandom(),
+  username: t.text().notNull(),
   password: t.text().notNull(),
 });
