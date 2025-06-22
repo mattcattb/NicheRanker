@@ -5,7 +5,8 @@
   "files": [],
   "include": [],
   "workspaces": [
-    "packages/*"
+    "packages/api/*",
+    "packages/web/*"
   ],
   "scripts": {
     "build": "tsc -b",
