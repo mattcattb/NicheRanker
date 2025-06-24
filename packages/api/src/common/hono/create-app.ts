@@ -1,4 +1,4 @@
-import {createChildLogger, getPinoLogger} from "@/common/logger";
+import {createChildLogger, getPinoLogger} from "@/common/hono/logger";
 import type {AppEnv} from "@/common/types/hono-types";
 import {Hono} from "hono";
 

@@ -1,4 +1,4 @@
-import createApp from "@/common/create-app";
+import createApp from "@/common/hono/create-app";
 import {AuthMiddleware} from "@/core";
 import {authController} from "@/core/auth/auth.controller";
 import {usersController} from "@/core/user/user.controller";

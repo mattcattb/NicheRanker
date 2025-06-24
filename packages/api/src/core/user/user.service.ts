@@ -1,42 +1,47 @@
+import {SPOTIFY_CLIENT_ID} from "@/common/ENV";
 import {ResourceCreationException} from "@/common/exceptions";
 import {NonEmptyString} from "@/common/zod";
 import db, {Database} from "@/db/client";
 import {users} from "@/db/schemas";
 import {hashString} from "@/lib/crypto";
+import {Spotify} from "@/lib/spotify";
+import {SpotifyApi} from "@spotify/web-api-ts-sdk";
 import {eq} from "drizzle-orm";
 import z from "zod/v4";
 
-const createUserSchema = z.object({
-  username: NonEmptyString,
-  password: NonEmptyString,
-});
-
-export async function createUser(data: z.infer<typeof createUserSchema>) {
-  const tx = Database.getTxOrDb();
-
-  const [createdUser] = await tx
-    .insert(users)
-    .values({
-      username: data.username,
-      password: hashString(data.password),
-    })
-    .returning();
-
-  if (!createdUser) {
-    throw new ResourceCreationException("Failed to create user!");
-  }
-
-  return createdUser;
-}
-
-export async function getUser(userId: string) {
-  const user = await db.query.users.findFirst({
-    where: eq(users.id, userId),
+export async function getUser(accessToken: string) {
+  const userSdk = SpotifyApi.withAccessToken(SPOTIFY_CLIENT_ID, {
+    access_token: accessToken,
+    expires_in: 0,
+    refresh_token: "fdfd",
+    token_type: `Bearer`,
   });
 
-  if (!user) {
-    return null;
-  }
+  const profile = await userSdk.currentUser.profile();
+  return profile;
+}
 
-  return user;
+export async function getTopTracks(accessToken: string) {
+  const userSdk = SpotifyApi.withAccessToken(SPOTIFY_CLIENT_ID, {
+    access_token: accessToken,
+    expires_in: 0,
+    refresh_token: "fdfd",
+    token_type: `Bearer`,
+  });
+
+  const topTracks = await userSdk.currentUser.topItems("tracks", "long_term");
+  return topTracks;
+}
+
+export async function getTopArtists(accessToken: string) {
+  const userSdk = SpotifyApi.withAccessToken(SPOTIFY_CLIENT_ID, {
+    access_token: accessToken,
+    expires_in: 0,
+    refresh_token: "fdfd",
+    token_type: `Bearer`,
+  });
+
+  const topArtists = await userSdk.currentUser.topItems("artists", "long_term");
+
+  return topArtists;
 }

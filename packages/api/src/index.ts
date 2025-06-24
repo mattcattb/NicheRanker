@@ -1,4 +1,4 @@
-import {createChildLogger} from "@/common/logger";
+import {createChildLogger} from "@/common/hono/logger";
 import {app, appRoutes} from "./app";
 const startupLogger = createChildLogger("index");
 

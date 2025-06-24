@@ -6,62 +6,29 @@ import * as UserService from "@/core/user/user.service";
 import * as SessionService from "@/core/session/session.service";
 import {and, eq} from "drizzle-orm";
 import {sessions, users} from "@/db/schemas";
-import {hashString} from "@/lib/crypto";
-import {BadRequestException} from "@/common/exceptions";
+import {generateSecureString, hashString} from "@/lib/crypto";
+import {BadRequestException, ServiceException} from "@/common/exceptions";
+import {
+  SPOTIFY_CLIENT_ID,
+  SPOTIFY_CLIENT_SECRET,
+  SPOTIFY_REDIRECT_URI,
+} from "@/common/ENV";
+import {createChildLogger} from "@/common/hono/logger";
 
-export const signUpSchema = z.object({
-  username: NonEmptyString,
-  password: NonEmptyString,
-});
+const logger = createChildLogger("auth-service");
 
-export async function signUp(
-  json: z.infer<typeof signUpSchema>,
-  headerData?: z.infer<typeof headerDataSchema>
-) {
-  return await Database.transaction(async (tx) => {
-    const user = await UserService.createUser(json);
-    const session = await SessionService.createSession(user.id, headerData);
-    return {
-      token: session.id,
-      user,
-    };
-  });
-}
-export const signInSchema = z.object({
-  username: NonEmptyString,
-  password: NonEmptyString,
-});
-export async function signIn(
-  json: z.infer<typeof signInSchema>,
-  headerData?: z.infer<typeof headerDataSchema>
-) {
-  return await Database.transaction(async (tx) => {
-    const userData = await tx.query.users.findFirst({
-      where: and(
-        eq(users.password, hashString(json.password)),
-        eq(users.username, json.username)
-      ),
-      with: {
-        sessions: true,
-      },
-    });
+export async function getSpotifyAuthURL() {
+  const scope = "user-read-private user-read-email playlist-read-private"; // Add necessary scopes
+  const state = generateSecureString(10);
+  const queryParams = new URLSearchParams({
+    response_type: "code",
+    client_id: SPOTIFY_CLIENT_ID,
+    scope: scope,
+    redirect_uri: SPOTIFY_REDIRECT_URI,
+    state: state,
+  }).toString();
 
-    if (!userData) {
-      throw new BadRequestException(
-        "Invalid user credentials, please try again"
-      );
-    }
-
-    const newSession = await SessionService.createSession(
-      userData.id,
-      headerData
-    );
-
-    return {
-      user: userData,
-      token: newSession.id,
-    };
-  });
+  return {authUrl: `https://accounts.spotify.com/authorize?${queryParams}`};
 }
 
 export async function signOut(userId: string, token: string) {
@@ -70,4 +37,41 @@ export async function signOut(userId: string, token: string) {
 
     return {success: true};
   });
+}
+
+export const exchangeCodeForTokensSchema = z.object({
+  code: z.string(),
+});
+
+export async function exchangeCodeForTokens(
+  query: z.infer<typeof exchangeCodeForTokensSchema>
+) {
+  const {code} = query;
+  const tokenResponse = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization:
+        "Basic " + btoa(SPOTIFY_CLIENT_ID + ":" + SPOTIFY_CLIENT_SECRET),
+    },
+    body: new URLSearchParams({
+      grant_type: "authorization_code",
+      code: code,
+      redirect_uri: SPOTIFY_REDIRECT_URI,
+    }),
+  });
+
+  logger.info({tokenResponse}, `spotify token response to code ${code}`);
+  const tokenData = await tokenResponse.json();
+  if (tokenData.error) {
+    logger.error("Spotify Token Exchange Error:");
+    throw new ServiceException(
+      tokenData.error_description || "Failed to fetch access token."
+    );
+  }
+  return tokenData as {
+    access_token: string;
+    refresh_token: string;
+    expires_in: number;
+  };
 }

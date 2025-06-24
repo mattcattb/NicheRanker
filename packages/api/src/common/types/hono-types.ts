@@ -4,8 +4,7 @@ import z from "zod/v4";
 
 export type AppEnv = {
   Variables: {
-    session?: typeof sessions.$inferSelect;
-    userId?: string;
+    access_token?: string;
     headerData?: z.infer<typeof headerDataSchema>;
   };
 };
