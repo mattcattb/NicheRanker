@@ -1,4 +1,4 @@
-import {SESSION_EXPIRATION_MIN} from "@/common/config";
+import {SESSION_EXPIRATION_MIN} from "@/common/constants";
 import {
   AppErrorCodes,
   NotFoundException,

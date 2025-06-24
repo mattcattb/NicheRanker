@@ -2,15 +2,13 @@
   "name": "matty-stack",
   "private": true,
   "type": "module",
-  "files": [],
-  "include": [],
   "workspaces": [
-    "packages/api/*",
-    "packages/web/*"
+    "packages/*"
   ],
   "scripts": {
     "build": "tsc -b",
     "typecheck": "tsc -b --verbose",
+    "build:all": "bun run build -d packages/api && bun run build -d packages/web",
     "clean": "tsc -b --clean && rm -rf packages/*/dist && rm -rf packages/*/.turbo && rm -rf node_modules"
   }
 }

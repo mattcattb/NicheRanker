@@ -15,7 +15,7 @@ import {
   type RpcValidationIssues,
 } from "@/lib/errors";
 
-import type {AppType} from "@api/app";
+import type {AppRoutes} from "@matty-stack/api";
 
 export function apiClientRPC(config?: {
   userAgent?: string;
@@ -34,7 +34,7 @@ export function apiClientRPC(config?: {
   if (clientIp) {
     headers["X-Client-IP"] = clientIp;
   }
-  return hc<AppType>(ENV.api_url, {
+  return hc<AppRoutes>(ENV.api_url, {
     headers,
     init,
   });
