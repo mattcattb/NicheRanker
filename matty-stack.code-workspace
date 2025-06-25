@@ -1,8 +1,9 @@
 {
   "folders": [
     {"path": "./", "name": "$ROOT"},
-    {"path": "./packages/api"},
-    {"path": "./packages/web"},
+    {"path": "./apps/api"},
+    {"path": "./apps/web"},
+    {"path": "./packages/api-client"}
   ],
   "settings": {
     "editor.formatOnSave": true,
@@ -17,19 +18,19 @@
     "files.watcherExclude": {
       "**/node_modules/**": true,
       "**/dist/**": true,
-      "**/.react-router/cache/**": true,
+      "**/.react-router/cache/**": true
     },
 
     "tailwindCSS.includeLanguages": {
       "typescript": "javascript",
-      "typescriptreact": "javascript",
-    },
+      "typescriptreact": "javascript"
+    }
   },
   "extensions": {
     "recommendations": [
       "esbenp.prettier-vscode",
       "dbaeumer.vscode-eslint",
-      "ms-vscode.vscode-typescript-next",
-    ],
-  },
+      "ms-vscode.vscode-typescript-next"
+    ]
+  }
 }

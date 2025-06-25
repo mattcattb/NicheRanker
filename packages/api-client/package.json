@@ -1,0 +1,20 @@
+{
+  "name": "@matty-stack/api-client",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "rm -rf dist && tsc",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@matty-stack/api": "workspace:^",
+    "@types/node": "^22.10.2",
+    "hono": "^4.8.3"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.2"
+  }
+}
