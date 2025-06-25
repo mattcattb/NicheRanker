@@ -1,7 +1,7 @@
-import {CONFIG} from "@/api/lib/config";
-import {ENV} from "@/api/lib/ENV";
-import type {Toast} from "@/api/lib/toast";
-import {getHeaders, type HeaderData} from "@/api/lib/utils/connection";
+import {CONFIG} from "@/lib/config";
+import {ENV} from "@/lib/ENV";
+import type {Toast} from "@/lib/toast";
+import {getHeaders, type HeaderData} from "@/lib/utils/connection";
 import {createCookieSessionStorage} from "react-router";
 import {
   unstable_RouterContextProvider,

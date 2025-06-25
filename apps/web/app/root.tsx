@@ -9,11 +9,11 @@ import {
 
 import type {Route} from "./+types/root";
 import "./app.css";
-import {sessionMiddleware} from "@/api/.server/session";
-import {fetchAuthDataFromContext} from "@/api/.server/session.utils";
-import {getToastDataFromContext} from "@/api/.server/toast.utils";
-import {Navbar} from "@/api/components/navbar";
-import {Toaster} from "@/api/components/toaster";
+import {sessionMiddleware} from "@/.server/session";
+import {fetchAuthDataFromContext} from "@/.server/session.utils";
+import {getToastDataFromContext} from "@/.server/toast.utils";
+import {Navbar} from "@/components/navbar";
+import {Toaster} from "@/components/toaster";
 
 export const links: Route.LinksFunction = () => [
   {rel: "preconnect", href: "https://fonts.googleapis.com"},
