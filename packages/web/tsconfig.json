@@ -15,8 +15,7 @@
     "rootDirs": [".", "./.react-router/types"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/*"],
-      "@api/*": ["../api/src/*"]
+      "@/*": ["./app/*"]
     },
     "composite": true,
     "declaration": true,
@@ -28,5 +27,5 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "references": [{"path": "../api"}]
+  "references": [{"path": "../api-client"}]
 }

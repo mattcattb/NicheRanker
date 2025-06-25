@@ -1,7 +1,7 @@
-import {createRouter} from "@/common/hono/create-app";
-import * as AuthMiddleware from "@/core/auth/auth.middleware";
+import {createRouter} from "@/api/common/hono/create-app";
+import * as AuthMiddleware from "@/api/core/auth/auth.middleware";
 import * as UserService from "./user.service";
-import {NotFoundException} from "@/common/exceptions";
+import {NotFoundException} from "@/api/common/exceptions";
 import {getCookie} from "hono/cookie";
 
 export const usersController = createRouter()
@@ -19,9 +19,5 @@ export const usersController = createRouter()
 
     return c.json(userProfile, 200);
   })
-  .get("/top-tracks", async (c) => {
-    
-  })
-  .get("/top-artists", async (c) => {
-
-  });
+  .get("/top-tracks", async (c) => {})
+  .get("/top-artists", async (c) => {});

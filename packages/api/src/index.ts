@@ -1,5 +1,6 @@
-import {createChildLogger} from "@/common/hono/logger";
-import {app, appRoutes} from "./app";
+import app from "@/api/app";
+import {createChildLogger} from "@/api/common/hono/logger";
+import type {ApiRoutes} from "@/api/app";
 const startupLogger = createChildLogger("index");
 
 const port = parseInt(process.env.PORT || "3000");
@@ -10,4 +11,4 @@ export default {
   port: port,
 };
 
-export type AppRoutes = typeof appRoutes;
+export type {ApiRoutes};

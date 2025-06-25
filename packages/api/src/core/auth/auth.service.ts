@@ -1,19 +1,19 @@
 import z from "zod/v4";
 import {NonEmptyString} from "../../common/zod";
-import {headerDataSchema} from "@/core/auth/auth.middleware";
-import db, {Database} from "@/db/client";
-import * as UserService from "@/core/user/user.service";
-import * as SessionService from "@/core/session/session.service";
+import {headerDataSchema} from "@/api/core/auth/auth.middleware";
+import db, {Database} from "@/api/db/client";
+import * as UserService from "@/api/core/user/user.service";
+import * as SessionService from "@/api/core/session/session.service";
 import {and, eq} from "drizzle-orm";
-import {sessions, users} from "@/db/schemas";
-import {generateSecureString, hashString} from "@/lib/crypto";
-import {BadRequestException, ServiceException} from "@/common/exceptions";
+import {sessions, users} from "@/api/db/schemas";
+import {generateSecureString, hashString} from "@/api/lib/crypto";
+import {BadRequestException, ServiceException} from "@/api/common/exceptions";
 import {
   SPOTIFY_CLIENT_ID,
   SPOTIFY_CLIENT_SECRET,
   SPOTIFY_REDIRECT_URI,
-} from "@/common/ENV";
-import {createChildLogger} from "@/common/hono/logger";
+} from "@/api/common/env";
+import {createChildLogger} from "@/api/common/hono/logger";
 
 const logger = createChildLogger("auth-service");
 

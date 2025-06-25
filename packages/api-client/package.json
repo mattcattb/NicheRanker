@@ -1,5 +1,5 @@
 {
-  "name": "@matty-stack/api-client",
+  "name": "@nicheranker/api-client",
   "type": "module",
   "version": "1.0.0",
   "main": "./dist/index.js",
@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@matty-stack/api": "workspace:^",
+    "@nicheranker/api": "workspace:^",
     "@types/node": "^22.10.2",
     "hono": "^4.8.3"
   }

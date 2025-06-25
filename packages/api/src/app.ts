@@ -1,18 +1,31 @@
-import createApp from "@/common/hono/create-app";
-import {AuthMiddleware} from "@/core";
-import {authController} from "@/core/auth/auth.controller";
-import {usersController} from "@/core/user/user.controller";
+import {BASE_PATH} from "@/api/common/constants";
+import createApp, {createRouter} from "@/api/common/hono/create-app";
+import {getPinoLogger} from "@/api/common/hono/logger";
+import type {AppEnv} from "@/api/common/types/hono-types";
+import {AuthMiddleware} from "@/api/core";
+import {authController} from "@/api/core/auth/auth.controller";
+import {usersController} from "@/api/core/user/user.controller";
+import {registerRoutes} from "@/api/routes";
+import {Hono} from "hono";
 
-export const app = createApp();
+const app = new Hono<AppEnv>().basePath(BASE_PATH); // e.g., basePath('/api')
 
-app.use(AuthMiddleware.header);
+app
+  .use(getPinoLogger())
+  .use(AuthMiddleware.header)
+  .get("/health", (c) => {
+    // This health check now correctly lives at /api/health
+    return c.text("Hello Hono!");
+  });
 
-app.get("/health", (c) => {
-  return c.text("Hello Hono!");
-});
+const routes = app
+  .route("/auth", authController)
+  .route("/users", usersController);
 
-export const appRoutes = app
-  .route("/api/auth", authController)
-  .route("/api/users", usersController);
+// 4. Export the final router instance for your server to run.
+export const api = routes;
 
-export type AppType = typeof appRoutes;
+// const app = registerRoutes(createApp());
+export default app;
+
+export type ApiRoutes = typeof routes;

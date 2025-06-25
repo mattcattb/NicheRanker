@@ -2,29 +2,21 @@
   "extends": "../../tsconfig.base.json",
 
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ES2022",
-    "moduleResolution": "bundler",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "verbatimModuleSyntax": true,
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "checkJs": false,
-    "noFallthroughCasesInSwitch": true,
-    "isolatedModules": true,
     "composite": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
+    "baseUrl": "./",
+    "jsx": "react-jsx",
     "outDir": "./dist",
     "rootDir": "./src",
-    "jsx": "react-jsx",
+    "noEmit": false,
+
     "jsxImportSource": "hono/jsx",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/api/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["dist"]
 }

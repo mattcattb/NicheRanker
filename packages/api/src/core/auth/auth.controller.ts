@@ -1,4 +1,4 @@
-import {createRouter} from "@/common/hono/create-app";
+import {createRouter} from "@/api/common/hono/create-app";
 import * as AuthMiddleware from "./auth.middleware";
 import * as AuthService from "./auth.service";
 import {zValidator} from "@hono/zod-validator";
@@ -32,11 +32,7 @@ export const authController = createRouter()
     }
   )
 
-  .use(AuthMiddleware.sessionMiddleware)
+  .use(AuthMiddleware.accessTokenMiddleware)
   .delete("/sign-out", async (c) => {
-    const userId = c.get("userId");
-    const session = c.get("session");
-    const result = await AuthService.signOut(userId, session.id);
-
-    return c.json(result, 200);
+    return c.json({message: "in progress"}, 200);
   });

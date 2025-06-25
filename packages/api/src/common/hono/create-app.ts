@@ -1,5 +1,6 @@
-import {createChildLogger, getPinoLogger} from "@/common/hono/logger";
-import type {AppEnv} from "@/common/types/hono-types";
+import {createChildLogger, getPinoLogger} from "@/api/common/hono/logger";
+import type {AppEnv} from "@/api/common/types/hono-types";
+import {AuthMiddleware} from "@/api/core";
 import {Hono} from "hono";
 
 export function createRouter() {
@@ -8,12 +9,15 @@ export function createRouter() {
   });
 }
 
-const logger = createChildLogger("app");
-
 export default function createApp() {
   const app = createRouter();
 
-  app.use(getPinoLogger());
+  app
+    .use(getPinoLogger())
+    .use(AuthMiddleware.header)
+    .get("/health", (c) => {
+      return c.text("Hello Hono!");
+    });
 
   return app;
 }

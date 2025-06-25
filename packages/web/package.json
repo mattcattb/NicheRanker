@@ -9,11 +9,13 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.7.0",
+    "@nicheranker/api-client": "workspace:^",
     "@iconify/react": "^6.0.0",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "clsx": "^2.1.1",
-    "hono": "^4.8.2",
+    "hono": "^4.8.3",
     "isbot": "^5.1.27",
     "lucide-react": "^0.522.0",
     "react": "^19.1.0",

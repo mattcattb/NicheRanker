@@ -1,10 +1,10 @@
 import {createMiddleware} from "hono/factory";
 import {sessions} from "../../db/schemas";
-import * as SessionService from "@/core/session/session.service";
-import {AppErrorCodes, UnauthorizedException} from "@/common/exceptions";
+import * as SessionService from "@/api/core/session/session.service";
+import {AppErrorCodes, UnauthorizedException} from "@/api/common/exceptions";
 import z from "zod/v4";
-import {NonEmptyString} from "@/common/zod";
 import {getCookie} from "hono/cookie";
+import {NonEmptyString} from "@/api/common/zod";
 
 export const accessTokenMiddleware = createMiddleware<{
   Variables: {

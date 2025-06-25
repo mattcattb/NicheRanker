@@ -1,6 +1,6 @@
 // import type {router} from "@matty-stack/api";
 
-import type {ApiRoutes} from "@matty-stack/api";
+import type {ApiRoutes} from "@nicheranker/api";
 import {hc} from "hono/client";
 
 // create instance to inline type in build
