@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM"],
     "moduleDetection": "force",
     "moduleResolution": "bundler",
+    "types": ["bun-types"],
 
     "useDefineForClassFields": true,
     "module": "ESNext",
     "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "isolatedModules": true,
     "skipLibCheck": true,
+
     "noUncheckedSideEffectImports": true
   }
 }

@@ -12,11 +12,11 @@
     "apps/*",
     "packages/*"
   ],
-  "dependencies": {
-    "@hono/zod-validator": "^0.7.0",
-    "hono": "^4.8.3"
+  "overrides": {
+    "hono": "4.8.3"
   },
   "devDependencies": {
+    "typescript": "^5.4.5",
     "@types/bun": "^1.2.17"
   }
 }

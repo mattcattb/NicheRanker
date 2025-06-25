@@ -10,7 +10,7 @@
     "jsx": "react-jsx",
     "outDir": "./dist",
     "rootDir": "./src",
-    "typeRoots": ["./node_modules/@types", "./node_modules/@cloudflare"],
+    "noEmit": false,
 
     "jsxImportSource": "hono/jsx",
     "paths": {

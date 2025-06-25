@@ -1,12 +1,17 @@
 {
   "name": "@matty-stack/api",
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    "./routes": "./src/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "scripts": {
     "dev": "bun --watch src/index.ts",
-    "build": "rm -rf ./dist && tsc",
+    "build": "tsc --build",
     "typecheck": " tsc --noEmit",
     "db:migrate": "bun drizzle-kit migrate",
     "db:generate": "bun drizzle-kit generate",
