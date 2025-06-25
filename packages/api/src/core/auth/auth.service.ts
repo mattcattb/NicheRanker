@@ -2,10 +2,6 @@ import z from "zod/v4";
 import {NonEmptyString} from "../../common/zod";
 import {headerDataSchema} from "@/api/core/auth/auth.middleware";
 import db, {Database} from "@/api/db/client";
-import * as UserService from "@/api/core/user/user.service";
-import * as SessionService from "@/api/core/session/session.service";
-import {and, eq} from "drizzle-orm";
-import {sessions, users} from "@/api/db/schemas";
 import {generateSecureString, hashString} from "@/api/lib/crypto";
 import {BadRequestException, ServiceException} from "@/api/common/exceptions";
 import {
@@ -14,11 +10,12 @@ import {
   SPOTIFY_REDIRECT_URI,
 } from "@/api/common/env";
 import {createChildLogger} from "@/api/common/hono/logger";
+import {SpotifySDK} from "@/api/lib/spotify";
 
 const logger = createChildLogger("auth-service");
 
 export async function getSpotifyAuthURL() {
-  const scope = "user-read-private user-read-email playlist-read-private"; // Add necessary scopes
+  const scope = "user-read-private user-read-email playlist-read-private";
   const state = generateSecureString(10);
   const queryParams = new URLSearchParams({
     response_type: "code",
@@ -29,14 +26,6 @@ export async function getSpotifyAuthURL() {
   }).toString();
 
   return {authUrl: `https://accounts.spotify.com/authorize?${queryParams}`};
-}
-
-export async function signOut(userId: string, token: string) {
-  return await Database.transaction(async (tx) => {
-    await SessionService.deleteSession(token);
-
-    return {success: true};
-  });
 }
 
 export const exchangeCodeForTokensSchema = z.object({
@@ -74,4 +63,11 @@ export async function exchangeCodeForTokens(
     refresh_token: string;
     expires_in: number;
   };
+}
+
+export async function logout(token: string) {
+  const userSdk = SpotifySDK(token);
+
+  userSdk.logOut();
+  return;
 }

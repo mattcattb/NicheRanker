@@ -1,6 +1,5 @@
 import {createMiddleware} from "hono/factory";
 import {sessions} from "../../db/schemas";
-import * as SessionService from "@/api/core/session/session.service";
 import {AppErrorCodes, UnauthorizedException} from "@/api/common/exceptions";
 import z from "zod/v4";
 import {getCookie} from "hono/cookie";
