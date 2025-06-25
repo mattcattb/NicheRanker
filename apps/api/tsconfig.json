@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.base.json",
+
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": "./",
+    "jsx": "react-jsx",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noEmit": false,
+
+    "jsxImportSource": "hono/jsx",
+    "paths": {
+      "@/api/*": ["./src/*"]
+    }
+    //"types": ["node"]
+  },
+  "include": ["src"],
+  "exclude": ["dist"]
+}

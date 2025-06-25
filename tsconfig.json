@@ -1,11 +1,8 @@
 {
-  "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true
-  },
   "files": [],
-
-  "references": [{"path": "./packages/web"}, {"path": "./packages/api"}]
+  "references": [
+    {"path": "./apps/api"},
+    {"path": "./apps/web"},
+    {"path": "./packages/api-client"}
+  ]
 }

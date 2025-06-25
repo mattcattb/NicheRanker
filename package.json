@@ -1,16 +1,23 @@
 {
   "name": "nicheranker",
-  "private": true,
   "type": "module",
   "files": [],
-  "include": [],
-  "workspaces": [
-    "packages/api/*",
-    "packages/web/*"
-  ],
+  "private": true,
   "scripts": {
-    "build": "tsc -b",
-    "typecheck": "tsc -b --verbose",
+    "dev": "bun --filter \"*\"... dev",
+    "build": "bun --filter \"*\" build",
+    "typecheck": "bun tsc --noEmit",
     "clean": "tsc -b --clean && rm -rf packages/*/dist && rm -rf packages/*/.turbo && rm -rf node_modules"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "overrides": {
+    "hono": "4.8.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "@types/bun": "^1.2.17"
   }
 }
