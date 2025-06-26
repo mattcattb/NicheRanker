@@ -1,11 +1,6 @@
-// import type {router} from "@matty-stack/api";
+import type { ApiRoutes } from "@matty-stack/api";
+import { hc } from "hono/client";
 
-import type {ApiRoutes} from "@matty-stack/api";
-import {hc} from "hono/client";
-
-// create instance to inline type in build
-// https://hono.dev/docs/guides/rpc#compile-your-code-before-using-it-recommended
-// eslint-disable-next-line unused-imports/no-unused-vars
 const client = hc<ApiRoutes>("");
 export type Client = typeof client;
 

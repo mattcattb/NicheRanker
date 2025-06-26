@@ -11,7 +11,7 @@
   "dependencies": {
     "@hono/zod-validator": "^0.7.0",
     "@matty-stack/api-client": "workspace:^",
-
+    "@matty-stack/eslint-config": "workspace:^",
     "@iconify/react": "^6.0.0",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",

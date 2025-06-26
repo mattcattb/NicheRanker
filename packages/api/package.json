@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "bun --watch src/index.ts",
     "build": "tsc --build",
+    "clean": "rm -rf dist *.tsbuildinfo",
     "typecheck": " tsc --noEmit",
     "db:migrate": "bun drizzle-kit migrate",
     "db:generate": "bun drizzle-kit generate",
@@ -19,6 +20,7 @@
   },
   "dependencies": {
     "@hono/zod-validator": "^0.7.0",
+    "@matty-stack/eslint-config": "workspace:^",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.44.2",
     "drizzle-zod": "^0.8.2",

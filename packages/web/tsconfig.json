@@ -26,5 +26,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true
-  }
+  },
+  "references": [{ "path": "../api-client" }]
 }

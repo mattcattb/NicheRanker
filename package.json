@@ -2,14 +2,17 @@
   "name": "matty-stack",
   "private": true,
   "scripts": {
-    "dev": "bun --filter \"*\"... dev",
-    "build": "bun --filter \"*\" build",
+    "dev": "bun run --filter \"./packages/**\" dev --parallel",
+    "build": "bun run --filter \"./packages/*\" build",
+    "build:ts": "bun tsc -b tsconfig.json",
+    "clean:all": "bun run clean && rm -rf node_modules bun.lockb",
     "typecheck": "bun tsc --noEmit",
-    "clean": "tsc -b --clean && rm -rf packages/*/dist && rm -rf packages/*/.turbo && rm -rf node_modules"
+    "lint": "bunx eslint . --cache --cache-location ./.eslintcache",
+    "lint:fix": "bunx eslint . --fix --cache --cache-location ./.eslintcache",
+    "clean": "bun run --filter \"./packages/**\" clean && rm -rf node_modules bun.lockb"
   },
   "type": "module",
   "workspaces": [
-    "apps/*",
     "packages/*"
   ],
   "overrides": {
