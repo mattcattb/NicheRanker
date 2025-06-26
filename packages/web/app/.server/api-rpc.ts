@@ -1,6 +1,4 @@
-import {HTTPException} from "hono/http-exception";
-import {hc} from "hono/client";
-import {ENV} from "@/lib/ENV";
+import { HTTPException } from "hono/http-exception";
 import {
   NetworkError,
   NoDataError,
@@ -15,7 +13,7 @@ import {
   type RpcValidationIssues,
 } from "@/lib/errors";
 
-import apiClient from "@matty-stack/api-client";
+import apiClient from "@nicheranker/api-client";
 
 export function apiClientRPC(config?: {
   userAgent?: string;
@@ -23,7 +21,7 @@ export function apiClientRPC(config?: {
   token?: string;
   init?: RequestInit;
 }) {
-  const {clientIp, token, userAgent, init} = config ?? {};
+  const { clientIp, token, userAgent, init } = config ?? {};
   const headers: Record<string, string> = {};
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;

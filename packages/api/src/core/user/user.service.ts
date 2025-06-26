@@ -1,11 +1,11 @@
-import {SPOTIFY_CLIENT_ID} from "@/api/common/env";
+import { SPOTIFY_CLIENT_ID } from "@/api/common/env";
 import {
   getTopArtists,
   getTopTracks,
   getUserProfile,
   SpotifySDK,
 } from "@/api/lib/spotify";
-import {SpotifyApi} from "@spotify/web-api-ts-sdk";
+import { SpotifyApi } from "@spotify/web-api-ts-sdk";
 
 export async function getUser(accessToken: string) {
   const [profile, topArtists, topTracks] = await Promise.all([

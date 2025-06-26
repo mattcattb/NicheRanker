@@ -1,14 +1,14 @@
-import {createRouter} from "@/api/common/hono/create-app";
+import { createRouter } from "@/api/common/hono/create-app";
 import * as AuthMiddleware from "./auth.middleware";
 import * as AuthService from "./auth.service";
-import {zValidator} from "@hono/zod-validator";
-import {setCookie} from "hono/cookie";
+import { zValidator } from "@hono/zod-validator";
+import { setCookie } from "hono/cookie";
 
 const FRONTEND_CALLBACK_URL = "http://localhost:5173/";
 
 export const authController = createRouter()
   .post("/sign-in", async (c) => {
-    const {authUrl} = await AuthService.getSpotifyAuthURL();
+    const { authUrl } = await AuthService.getSpotifyAuthURL();
 
     return c.redirect(authUrl);
   })
@@ -34,5 +34,5 @@ export const authController = createRouter()
 
   .use(AuthMiddleware.accessTokenMiddleware)
   .delete("/sign-out", async (c) => {
-    return c.json({message: "in progress"}, 200);
+    return c.json({ message: "in progress" }, 200);
   });

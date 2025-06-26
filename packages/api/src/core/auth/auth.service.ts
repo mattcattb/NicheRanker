@@ -1,16 +1,16 @@
 import z from "zod/v4";
-import {NonEmptyString} from "../../common/zod";
-import {headerDataSchema} from "@/api/core/auth/auth.middleware";
-import db, {Database} from "@/api/db/client";
-import {generateSecureString, hashString} from "@/api/lib/crypto";
-import {BadRequestException, ServiceException} from "@/api/common/exceptions";
+import { NonEmptyString } from "../../common/zod";
+import { headerDataSchema } from "@/api/core/auth/auth.middleware";
+import db, { Database } from "@/api/db/client";
+import { generateSecureString, hashString } from "@/api/lib/crypto";
+import { BadRequestException, ServiceException } from "@/api/common/exceptions";
 import {
   SPOTIFY_CLIENT_ID,
   SPOTIFY_CLIENT_SECRET,
   SPOTIFY_REDIRECT_URI,
 } from "@/api/common/env";
-import {createChildLogger} from "@/api/common/hono/logger";
-import {SpotifySDK} from "@/api/lib/spotify";
+import { createChildLogger } from "@/api/common/hono/logger";
+import { SpotifySDK } from "@/api/lib/spotify";
 
 const logger = createChildLogger("auth-service");
 
@@ -25,7 +25,7 @@ export async function getSpotifyAuthURL() {
     state: state,
   }).toString();
 
-  return {authUrl: `https://accounts.spotify.com/authorize?${queryParams}`};
+  return { authUrl: `https://accounts.spotify.com/authorize?${queryParams}` };
 }
 
 export const exchangeCodeForTokensSchema = z.object({
@@ -35,7 +35,7 @@ export const exchangeCodeForTokensSchema = z.object({
 export async function exchangeCodeForTokens(
   query: z.infer<typeof exchangeCodeForTokensSchema>
 ) {
-  const {code} = query;
+  const { code } = query;
   const tokenResponse = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
@@ -50,7 +50,7 @@ export async function exchangeCodeForTokens(
     }),
   });
 
-  logger.info({tokenResponse}, `spotify token response to code ${code}`);
+  logger.info({ tokenResponse }, `spotify token response to code ${code}`);
   const tokenData = await tokenResponse.json();
   if (tokenData.error) {
     logger.error("Spotify Token Exchange Error:");

@@ -1,8 +1,8 @@
-import {createRouter} from "@/api/common/hono/create-app";
+import { createRouter } from "@/api/common/hono/create-app";
 import * as AuthMiddleware from "@/api/core/auth/auth.middleware";
 import * as UserService from "./user.service";
-import {NotFoundException} from "@/api/common/exceptions";
-import {getCookie} from "hono/cookie";
+import { NotFoundException } from "@/api/common/exceptions";
+import { getCookie } from "hono/cookie";
 
 export const usersController = createRouter()
   .use(AuthMiddleware.accessTokenMiddleware)
