@@ -59,4 +59,6 @@ export async function getSavedTracks(accessToken: string) {
 
 export async function getRecommendations(accessToken: string) {
   const userSdk = SpotifySDK(accessToken);
+
+  const response = await userSdk.recommendations.genreSeeds;
 }
